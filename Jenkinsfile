@@ -4,12 +4,8 @@ pipeline {
     stage('Upload to AWS') {
       steps {
         withAWS(credentials: 'aws-static', region: 'ap-northeast-1') {
-          sh 'echo "Hello World"'
+          sh 'tidy -q -e *.html'
           s3Upload(file:'index.html', bucket:'cyonemori-publish-bucket', path:'index.html')
-          sh '''
-            echo "Multiline shell steps works too"
-            ls -lah
-          '''
         }
       }
     }
